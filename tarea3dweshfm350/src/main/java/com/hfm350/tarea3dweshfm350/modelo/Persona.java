@@ -86,14 +86,10 @@ public class Persona implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(credenciales, email, id, nombre);
-	}
-
-
-	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + ", credenciales=" + credenciales + "]";
+	    String credencialesStr = (credenciales != null) ? "Credencial [usuario=" + credenciales.getUsuario() + ", id=" + credenciales.getId() + "]" : "Sin credenciales asociadas";
+	    return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + ", credenciales=" + credencialesStr + "]";
 	}
+
 
 }

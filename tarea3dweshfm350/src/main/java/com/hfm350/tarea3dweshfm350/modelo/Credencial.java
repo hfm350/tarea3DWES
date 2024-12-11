@@ -79,14 +79,10 @@ public class Credencial implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(id, password, usuario);
+	public String toString() {
+	    String personaStr = (persona != null) ? "Persona [id=" + persona.getId() + ", nombre=" + persona.getNombre() + "]" : "Sin persona asociada";
+	    return "Credencial [id=" + id + ", usuario=" + usuario + ", password=" + password + ", persona=" + personaStr + "]";
 	}
 
-	@Override
-	public String toString() {
-		return "Credencial [id=" + id + ", usuario=" + usuario + ", password=" + password + ", persona=" + persona
-				+ "]";
-	}
 
 }

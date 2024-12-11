@@ -81,13 +81,10 @@ public class Ejemplar implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(id, nombre, planta);
-	}
-
-	@Override
 	public String toString() {
 		return "Ejemplar [id=" + id + ", nombre=" + nombre + ", planta=" + planta + "]";
 	}
+
+	
 
 }
