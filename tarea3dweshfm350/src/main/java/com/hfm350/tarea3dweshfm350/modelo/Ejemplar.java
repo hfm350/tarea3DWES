@@ -82,7 +82,11 @@ public class Ejemplar implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ejemplar [id=" + id + ", nombre=" + nombre + ", planta=" + planta + "]";
+		return "Ejemplar{" +
+		        "id=" + id +
+		        ", nombre='" + (nombre != null ? nombre : "null") + '\'' +
+		        ", planta=" + (planta != null ? planta.getId() : "null") +
+		        '}';
 	}
 
 	

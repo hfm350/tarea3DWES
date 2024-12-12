@@ -292,12 +292,23 @@ public class FachadaAdmin {
 	    boolean existeCodigoPlanta;
 
 	    do {
+	    	List<Planta> plantas = servPlanta.findAll();
+	        if (plantas.isEmpty()) {
+	            System.out.println("No hay plantas registradas. No se puede registrar un ejemplar.");
+	            return;
+	        }
+	        System.out.println("Estas son las Plantas que hay ahora mismo en el Vivero");
+	        int cont = 0;
+	        for (Planta planta : plantas) {
+	        	cont++;
+	            System.out.println( cont+"º \t\t"+planta.getCodigo()+ ", " +planta.getNombreComun() );
+	        }
 	        System.out.println("Dime el codigo de la Planta");
 	        codigoPlanta = sc.nextLine();
-	        existeCodigoPlanta = servPlanta.validarCodigo(codigoPlanta);
+	        existeCodigoPlanta = servPlanta.codigoExistente(codigoPlanta);
 
 	        if (!existeCodigoPlanta) {
-	            System.out.println("El código ingresado no existe. Inténtalo de nuevo.");
+	            System.out.println("El codigo no coincide con ninguna Planta");
 	        }
 	    } while (!existeCodigoPlanta); 
 
@@ -310,6 +321,11 @@ public class FachadaAdmin {
 	        
 	        servEjemplar.insertar(nombreEjemplar, codigoPlanta);
 	        System.out.println("Ejemplar registrado exitosamente.");
+	        System.out.println("\nLista de todos los ejemplares registrados:");
+	        List<Ejemplar> ejemplares = servEjemplar.findAll();
+	        for (Ejemplar ejemplar : ejemplares) {
+	            System.out.println("ID: " + ejemplar.getId() + ", Nombre: " + ejemplar.getNombre() + ", Planta: " + ejemplar.getPlanta().getNombreComun());
+	        }
 	    } else {
 	        System.out.println("Hubo un error al buscar la planta.");
 	    }

@@ -91,9 +91,13 @@ public class Planta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Planta [id=" + id + ", codigo=" + codigo + ", nombreComun=" + nombreComun + ", nombreCientifico="
-				+ nombreCientifico + ", ejemplares=" + ejemplares + "]";
+	    return "Planta{" +
+	            "id=" + id +
+	            ", nombre comun='" + nombreComun + ", nombre cientifico= " + nombreCientifico + '\'' +
+	            ", ejemplares=" + (ejemplares != null ? ejemplares.size() : "0 ejemplares") +
+	            '}';
 	}
+
 
 	
 

@@ -1,5 +1,6 @@
 package com.hfm350.tarea3dweshfm350.servicios;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,10 @@ public class ServiciosEjemplar {
 	    } catch (Exception e) {
 	        System.err.println("Error al registrar el ejemplar: " + e.getMessage());
 	    }
+	}
+
+	public List<Ejemplar> findAll() {
+		return ejemplarRepo.findAll();
 	}
 
 }
