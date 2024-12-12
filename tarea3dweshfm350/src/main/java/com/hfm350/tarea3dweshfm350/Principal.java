@@ -7,6 +7,8 @@ import com.hfm350.tarea3dweshfm350.fachada.FachadaInvitado;
 
 public class Principal implements CommandLineRunner {
 
+
+	
 	@Autowired
 	private FachadaInvitado fachadaInvitado;
 

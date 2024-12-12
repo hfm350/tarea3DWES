@@ -17,6 +17,10 @@ public class ServiciosPlanta {
     private PlantaRepository plantaRepo;
 
     public void insertar(Planta p) {
+        if (p == null) {
+            System.out.println("La planta no puede ser nula.");
+            return;
+        }
         plantaRepo.saveAndFlush(p);
     }
 
@@ -41,6 +45,9 @@ public class ServiciosPlanta {
     }
 
     public boolean validarPlanta(Planta p) {
+        if (p == null) {
+            return false;
+        }
         return validarCodigo(p.getCodigo()) &&
                validarTexto(p.getNombreCientifico(), 3, 100) &&
                validarTexto(p.getNombreComun(), 3, 100);
