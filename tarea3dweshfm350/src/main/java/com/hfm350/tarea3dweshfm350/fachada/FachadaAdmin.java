@@ -125,7 +125,7 @@ public class FachadaAdmin {
 					break;
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("ERROR, porfavor ingrese un numero ENTERO");
+				System.out.println("ERROR, porfavor ingrese un numero ENTERO");
 				sc.next();
 			}
 		} while (opcion != 9);
@@ -270,7 +270,7 @@ public class FachadaAdmin {
 					break;
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("ERROR, porfavor ingrese un numero ENTERO");
+				System.out.println("ERROR, porfavor ingrese un numero ENTERO");
 				sc.next();
 			}
 		} while (opcion != 9);
