@@ -58,4 +58,8 @@ public class ServiciosEjemplar {
 		return ejemplarRepo.findAll();
 	}
 
+	public boolean existsByPlanta(Planta planta) {
+		return ejemplarRepo.existePlanta(planta);
+	}
+
 }

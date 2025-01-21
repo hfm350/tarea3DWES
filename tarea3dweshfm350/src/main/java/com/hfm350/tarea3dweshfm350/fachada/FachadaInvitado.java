@@ -3,13 +3,17 @@ package com.hfm350.tarea3dweshfm350.fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Scanner;
 
 import com.hfm350.tarea3dweshfm350.fachada.*;
+import com.hfm350.tarea3dweshfm350.modelo.Controlador;
+import com.hfm350.tarea3dweshfm350.modelo.Credencial;
 import com.hfm350.tarea3dweshfm350.modelo.Pedido;
 import com.hfm350.tarea3dweshfm350.modelo.Persona;
 import com.hfm350.tarea3dweshfm350.modelo.Planta;
@@ -17,19 +21,27 @@ import com.hfm350.tarea3dweshfm350.modelo.Sesion;
 import com.hfm350.tarea3dweshfm350.modelo.Sesion.Perfil;
 import com.hfm350.tarea3dweshfm350.servicios.ServicioPedido;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosCredenciales;
+import com.hfm350.tarea3dweshfm350.servicios.ServiciosPersona;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosPlanta;
 
 @Component
 public class FachadaInvitado {
 
 	@Autowired
-	private ServiciosCredenciales credencialesServicio;
+	@Lazy
+	private Controlador controlador;
+
+	@Autowired
+	private ServiciosCredenciales servCredenciales;
 
 	@Autowired
 	private ServiciosPlanta plantasServicio;
 
 	@Autowired
 	private ServicioPedido servicioPedido;
+
+	@Autowired
+	private ServiciosPersona servPersona;
 
 	@Autowired
 	@Lazy
@@ -60,6 +72,7 @@ public class FachadaInvitado {
 				switch (opcionSeleccionada) {
 				case 1:
 					mostrarTodasLasPlantas();
+					mostrarMenuInvitado();
 					break;
 				case 2:
 					iniciarSesion();
@@ -77,7 +90,7 @@ public class FachadaInvitado {
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("ENTRADA NO VALIDA");
-				sc.nextLine();
+				sc.next();
 				opcionSeleccionada = 0;
 			}
 		} while (sesion);
@@ -90,7 +103,7 @@ public class FachadaInvitado {
 		System.out.print("Ingrese su contraseña: ");
 		String clave = sc.nextLine().toLowerCase();
 
-		if (credencialesServicio.autenticar(nombreUsuario, clave)) {
+		if (servCredenciales.autenticar(nombreUsuario, clave)) {
 			System.out.print("\n");
 
 			if (nombreUsuario.equalsIgnoreCase("ADMIN") && clave.equals("admin")) {
@@ -129,20 +142,27 @@ public class FachadaInvitado {
 	public void iniciarSesion() {
 		sc.nextLine();
 		System.out.print("Ingrese su nombre de usuario: ");
-		String nombreUsuario = sc.nextLine().toUpperCase();
+		String nombreUsuario = sc.nextLine().toUpperCase().trim();
 		System.out.print("Ingrese su contraseña: ");
-		String clave = sc.nextLine().toLowerCase();
+		String clave = sc.nextLine().toLowerCase().trim();
 
-		if (credencialesServicio.autenticar(nombreUsuario, clave)) {
+		if (servCredenciales.autenticar(nombreUsuario, clave)) {
+
+			Optional<Credencial> usuarioId = servCredenciales.buscarPersonaPorId(nombreUsuario);
+
+			Credencial c = usuarioId.get();
+
+			controlador.setUsuarioAutenticado(c.getId());
+
 			System.out.print("\n");
 			if (nombreUsuario.equalsIgnoreCase("ADMIN") && clave.equals("admin")) {
 				s.setPerfil(Perfil.ADMIN);
-				System.out.println("\t\tHola ADMIN");
 				adminVista.menuAdmin();
 			} else {
 				s.setPerfil(Perfil.PERSONAL);
 				personalVista.menuPersonal();
 			}
+
 		} else {
 			System.out.println("Usuario o contraseña incorrectos.");
 			mostrarMenuInvitado();

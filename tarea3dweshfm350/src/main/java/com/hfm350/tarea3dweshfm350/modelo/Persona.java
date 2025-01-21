@@ -33,8 +33,8 @@ public class Persona implements Serializable {
 
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
 	private Credencial credenciales;
-
-	@OneToMany(mappedBy = "persona")
+	
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
 	private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 
 	public Persona() {

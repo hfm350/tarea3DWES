@@ -1,5 +1,7 @@
 package com.hfm350.tarea3dweshfm350.servicios;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,40 +23,49 @@ public class ServiciosCredenciales {
 		return crendecialRepo.findByUsuario(nombreUsuario).map(credenciales -> credenciales.getPassword().equals(clave))
 				.orElse(false);
 	}
-	
+
 	public boolean verificarUsuario(String usuario) {
-        return crendecialRepo.existeUsuario(usuario);
-    }
+		return crendecialRepo.existeUsuario(usuario);
+	}
 
-	
 	public void insertar(String usuario, String password, Long idPersona) {
-	    
-	    Persona persona = personaRepo.findById(idPersona).orElse(null);
-	    
-	    
-	    if (persona == null) {
-	        System.out.println("La persona con ID " + idPersona + " no existe.");
-	        return;  
-	    }
-	    
-	    
-	    Credencial credenciales = new Credencial();
-	    credenciales.setUsuario(usuario);
-	    credenciales.setPassword(password);
-	    credenciales.setPersona(persona);  
+		Persona persona = personaRepo.findById(idPersona).orElse(null);
 
-	    try {
-	        
-	    	crendecialRepo.save(credenciales);
-	        System.out.println("Credenciales registradas exitosamente para el usuario: " + usuario);
-	    } catch (Exception e) {
-	        System.err.println("Error al registrar las credenciales: " + e.getMessage());
-	    }
+		if (persona == null) {
+			System.out.println("La persona con ID " + idPersona + " no existe.");
+			return;
+		}
+
+		Credencial credenciales = new Credencial();
+		credenciales.setUsuario(usuario);
+		credenciales.setPassword(password);
+		credenciales.setPersona(persona);
+
+		try {
+			crendecialRepo.save(credenciales);
+			System.out.println("Credenciales registradas exitosamente para el usuario: " + usuario);
+		} catch (Exception e) {
+			System.err.println("Error al registrar las credenciales: " + e.getMessage());
+		}
 	}
 
 	public boolean existeUsuario(String usuario) {
-		return false;
+		return crendecialRepo.existeUsuario(usuario);
 	}
 
+	public Long obtenerIdUsuario(String usuario) {
+		return crendecialRepo.obtenerIdUsuario(usuario)
+				.orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado: " + usuario));
+	}
+	
+	public Persona buscarPersonaPorUsuario(String usuario) {
+		return crendecialRepo.findPersonaByUsuario(usuario);
+	}
+
+	public Optional<Credencial> buscarPersonaPorId(String nombreUsuario) {
+		return crendecialRepo.findByUsuario(nombreUsuario);
+	}
+
+	
 
 }

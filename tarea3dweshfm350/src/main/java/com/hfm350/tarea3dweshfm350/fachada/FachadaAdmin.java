@@ -1,15 +1,23 @@
 package com.hfm350.tarea3dweshfm350.fachada;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+import com.hfm350.tarea3dweshfm350.modelo.Controlador;
 import com.hfm350.tarea3dweshfm350.modelo.Credencial;
 import com.hfm350.tarea3dweshfm350.modelo.Ejemplar;
+import com.hfm350.tarea3dweshfm350.modelo.Mensaje;
 import com.hfm350.tarea3dweshfm350.modelo.Persona;
 import com.hfm350.tarea3dweshfm350.modelo.Planta;
 import com.hfm350.tarea3dweshfm350.modelo.Sesion;
@@ -17,12 +25,20 @@ import com.hfm350.tarea3dweshfm350.modelo.Sesion.Perfil;
 import com.hfm350.tarea3dweshfm350.repositorios.EjemplarRepository;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosCredenciales;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosEjemplar;
+import com.hfm350.tarea3dweshfm350.servicios.ServiciosMensaje;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosPersona;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosPlanta;
 
-@Component
+@Controller
 public class FachadaAdmin {
-	
+
+	@Autowired
+	@Lazy
+	Controlador controlador;
+
+	@Autowired
+	private ServiciosMensaje servMensaje;
+
 	@Autowired
 	private ServiciosEjemplar servEjemplar;
 
@@ -49,10 +65,11 @@ public class FachadaAdmin {
 		Sesion s = new Sesion(Perfil.ADMIN);
 		int opcion = 0;
 		boolean sesion = true;
+		Long usuarioId = controlador.getUsuarioAutenticado();
 
 		do {
-			System.out.println("\n\t\tMenú Administrador\n");
-			System.out.println("\t\t1-  Gestión plantas");
+			System.out.println("\n\t\tMenú Administrador - Nº: " + usuarioId );
+			System.out.println("\n\t\t1-  Gestión plantas");
 			System.out.println("\t\t2-  Gestión ejemplares");
 			System.out.println("\t\t3-  Gestión mensajes");
 			System.out.println("\t\t4-  Gestión persona");
@@ -136,7 +153,20 @@ public class FachadaAdmin {
 		boolean codigoCorrecto = false;
 		boolean encontrado = false;
 		String codigo;
+		ArrayList<Planta> listaDePlantas = (ArrayList<Planta>) servPlanta.findAll();
+		if (listaDePlantas == null || listaDePlantas.isEmpty()) {
+			System.out.println("NO HAY PLANTAS");
+			return;
+		}
+		int contador = 0;
+		System.out.println("\t\t\tLISTA DE PLANTAS DISPONIBLES");
+		for (Planta planta : listaDePlantas) {
+			contador++;
+			System.out.println(contador + "º");
+			System.out.println(planta);
+			System.out.println("-----------------");
 
+		}
 		do {
 			System.out.println("Dime el CODIGO para poder cambiar el nombre de esa PLANTA");
 			codigo = sc.nextLine();
@@ -170,7 +200,20 @@ public class FachadaAdmin {
 		boolean codigoCorrecto = false;
 		boolean encontrado = false;
 		String codigo;
+		ArrayList<Planta> listaDePlantas = (ArrayList<Planta>) servPlanta.findAll();
+		if (listaDePlantas == null || listaDePlantas.isEmpty()) {
+			System.out.println("NO HAY PLANTAS");
+			return;
+		}
+		int contador = 0;
+		System.out.println("\t\t\tLISTA DE PLANTAS DISPONIBLES");
+		for (Planta planta : listaDePlantas) {
+			contador++;
+			System.out.println(contador + "º");
+			System.out.println(planta);
+			System.out.println("-----------------");
 
+		}
 		do {
 			System.out.println("Dime el CODIGO para poder cambiar el nombre de esa PLANTA");
 			codigo = sc.nextLine();
@@ -200,45 +243,45 @@ public class FachadaAdmin {
 	}
 
 	public void insertarPlanta() {
-		Planta p = new Planta();
-		boolean valido = false;
-		while (!valido) {
-			System.out.print("Dime el CODIGO de la planta: ");
-			try {
-				String codigoPlanta = sc.nextLine().toUpperCase();
-				valido = servPlanta.validarCodigo(codigoPlanta);
-				if (!valido) {
-					System.out.println("3-20 Caracteres");
-					continue;
-				}
-				p.setCodigo(codigoPlanta);
-			} catch (Exception e) {
-				System.out.println("ERROR al insertar los datos " + e.getMessage());
-				valido = false;
-			}
-		}
+	    Planta p = new Planta();
 
-		System.out.print("Nombre común: ");
-		String nombreComun = sc.nextLine().trim();
-		p.setNombreComun(nombreComun);
+	    while (true) {
+	        System.out.print("Dime el CODIGO de la planta: ");
+	        String codigoPlanta = sc.nextLine().toUpperCase();
 
-		System.out.print("Nombre científico: ");
-		String nombreCientifico = sc.nextLine().trim();
-		p.setNombreCientifico(nombreCientifico);
+	        if (!servPlanta.validarCodigo(codigoPlanta)) {
+	            System.out.println("3-20 Caracteres");
+	            continue;
+	        }
 
-		valido = servPlanta.validarPlanta(p);
-		if (!valido) {
-			System.out.println("Los datos que has introducido no son correctos. Revisa los valores ingresados.");
-			return;
-		}
+	        p.setCodigo(codigoPlanta);
+	        System.out.println("Código de planta insertado correctamente.");
+	        break;
+	    }
 
-		try {
-			servPlanta.insertar(p);
-			System.out.println("Planta INSERTADA.");
-		} catch (Exception e) {
-			System.out.println("ERROR al insertar la planta" + e.getMessage());
-		}
+	    System.out.print("Nombre común: ");
+	    String nombreComun = sc.nextLine().trim();
+	    p.setNombreComun(nombreComun);
+
+	    System.out.print("Nombre científico: ");
+	    String nombreCientifico = sc.nextLine().trim();
+	    p.setNombreCientifico(nombreCientifico);
+
+	    boolean valido = servPlanta.validarPlanta(p);
+	    if (!valido) {
+	        System.out.println("Los datos que has introducido no son correctos. Revisa los valores ingresados.");
+	        return;
+	    }
+
+	    try {
+	        servPlanta.insertar(p);
+	        System.out.println("Planta INSERTADA.");
+	    } catch (Exception e) {
+	        System.out.println("ERROR al insertar la planta: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
 
 	private void gestionEjemplar() {
 		int opcion = 0;
@@ -263,7 +306,7 @@ public class FachadaAdmin {
 					ejemplarPlantas();
 					break;
 				case 3:
-					mensajesEjemplar();
+					verMensajesdeUnEjemplar();
 					break;
 				case 9:
 					menuAdmin();
@@ -276,33 +319,85 @@ public class FachadaAdmin {
 		} while (opcion != 9);
 	}
 
-	private void mensajesEjemplar() {
+	private void verMensajesdeUnEjemplar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void ejemplarPlantas() {
-		// TODO Auto-generated method stub
-		
+		boolean correcto = false;
+		int contador = 0;
+		List<Ejemplar> ejemplares = servEjemplar.findAll();
+		List<Planta> listaDePlantas = servPlanta.findAll();
+
+		for (Planta p : listaDePlantas) {
+			contador++;
+			System.out.println(contador + "º");
+			System.out.println(p.getCodigo() + " ==>\t" + p.getNombreComun());
+			System.out.println("-----------------");
+		}
+
+		do {
+			System.out.print("Dime el codigo de PLANTA para ver su EJEMPLAR: ");
+			String codigo = sc.nextLine().trim().toUpperCase();
+
+			for (Planta p : listaDePlantas) {
+				if (p.getCodigo().equals(codigo)) {
+					correcto = true;
+					boolean ejemplarEncontrado = false;
+
+					for (Ejemplar ej : ejemplares) {
+						if (ej.getPlanta().getId() == p.getId()) {
+							ejemplarEncontrado = true;
+							System.out.println("Ejemplar encontrado: " + ej);
+						}
+					}
+
+					if (!ejemplarEncontrado) {
+						System.out.println("No existen ejemplares para esta planta " + p);
+					}
+					break;
+				}
+			}
+
+			if (!correcto) {
+				System.out.println("CODIGO INVALIDO");
+			}
+
+		} while (!correcto);
 	}
 
 	private void insertarEjemplar() {
 	    Ejemplar e = new Ejemplar();
+	    Mensaje m = new Mensaje();
 	    String codigoPlanta;
 	    boolean existeCodigoPlanta;
 
 	    do {
-	    	List<Planta> plantas = servPlanta.findAll();
+	        List<Planta> plantas = servPlanta.findAll();
 	        if (plantas.isEmpty()) {
 	            System.out.println("No hay plantas registradas. No se puede registrar un ejemplar.");
 	            return;
 	        }
-	        System.out.println("Estas son las Plantas que hay ahora mismo en el Vivero");
-	        int cont = 0;
-	        for (Planta planta : plantas) {
-	        	cont++;
-	            System.out.println( cont+"º \t\t"+planta.getCodigo()+ ", " +planta.getNombreComun() );
+
+	        List<Planta> plantaSinEjemplar = new ArrayList<>();
+	        for (Planta p : plantas) {
+	            if (!servEjemplar.existsByPlanta(p)) {
+	                plantaSinEjemplar.add(p);
+	            }
 	        }
+
+	        if (plantaSinEjemplar.isEmpty()) {
+	            System.out.println("No hay plantas sin EJEMPLAR");
+	            return;
+	        }
+
+	        int cont = 0;
+	        for (Planta p : plantaSinEjemplar) {
+	            cont++;
+	            System.out.println(cont + "º \t\t" + p.getCodigo() + ", " + p.getNombreComun());
+	        }
+
 	        System.out.println("Dime el codigo de la Planta");
 	        codigoPlanta = sc.nextLine();
 	        existeCodigoPlanta = servPlanta.codigoExistente(codigoPlanta);
@@ -310,21 +405,41 @@ public class FachadaAdmin {
 	        if (!existeCodigoPlanta) {
 	            System.out.println("El codigo no coincide con ninguna Planta");
 	        }
-	    } while (!existeCodigoPlanta); 
+
+	    } while (!existeCodigoPlanta);
 
 	    Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
 	    if (planta != null) {
 	        e.setPlanta(planta);
+
 	        System.out.println("Dime el nombre del ejemplar");
-	        String nombreEjemplar = sc.nextLine();
+	        String nombreEjemplar = sc.nextLine().toUpperCase();
 	        e.setNombre(nombreEjemplar);
-	        
+
 	        servEjemplar.insertar(nombreEjemplar, codigoPlanta);
-	        System.out.println("Ejemplar registrado exitosamente.");
-	        System.out.println("\nLista de todos los ejemplares registrados:");
-	        List<Ejemplar> ejemplares = servEjemplar.findAll();
-	        for (Ejemplar ejemplar : ejemplares) {
-	            System.out.println("ID: " + ejemplar.getId() + ", Nombre: " + ejemplar.getNombre() + ", Planta: " + ejemplar.getPlanta().getNombreComun());
+
+	        LocalDateTime tiempo = LocalDateTime.now();
+	        System.out.println("Dime un mensaje para poner: ");
+	        String msg = sc.nextLine();
+
+	        Long usuarioId = controlador.getUsuarioAutenticado();
+	        Optional<Persona> personaID = servPersona.buscarPorId(usuarioId);
+
+	        if (!personaID.isPresent()) {
+	            System.out.println("No se encuentra la persona");
+	        } else {
+	            Persona persona = personaID.get();
+	            m.setPersona(persona);
+	            m = new Mensaje(tiempo, msg, persona, e);
+	            servMensaje.insertar(m);
+
+	            System.out.println("Ejemplar registrado exitosamente.");
+	            System.out.println("\nLista de todos los ejemplares registrados:");
+	            List<Ejemplar> ejemplares = servEjemplar.findAll();
+	            for (Ejemplar ejemplar : ejemplares) {
+	                System.out.println("ID: " + ejemplar.getId() + ", Nombre: " + ejemplar.getNombre() + ", Planta: "
+	                        + ejemplar.getPlanta().getNombreComun());
+	            }
 	        }
 	    } else {
 	        System.out.println("Hubo un error al buscar la planta.");

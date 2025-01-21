@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import com.hfm350.tarea3dweshfm350.modelo.Controlador;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosEjemplar;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosMensaje;
 import com.hfm350.tarea3dweshfm350.servicios.ServiciosPersona;
@@ -34,11 +35,18 @@ public class FachadaPersonal {
 	@Lazy
 	private FachadaInvitado vistaInvitado;
 
+	@Autowired
+	@Lazy
+	Controlador controlador;
+
+	
+
 	public void menuPersonal() {
 		Scanner sc = new Scanner(System.in);
 		int seleccion = 0;
+		Long usuarioID = controlador.getUsuarioAutenticado();
 		do {
-			System.out.println("\n\t\t MENÚ DEL PERSONAL");
+			System.out.println("\n\t\t MENÚ DEL PERSONAL - Nº: " +usuarioID);
 			System.out.println("\t\t1. Listar todas las plantas.");
 			System.out.println("\t\t2. Administrar ejemplares.");
 			System.out.println("\t\t3. Administrar mensajes.");
@@ -52,7 +60,6 @@ public class FachadaPersonal {
 
 				switch (seleccion) {
 				case 1 -> {
-					System.out.println("Cargando todas las plantas...");
 					vistaInvitado.mostrarTodasLasPlantas();
 				}
 				case 2 -> {
@@ -76,7 +83,7 @@ public class FachadaPersonal {
 	}
 
 	private void menuPersonalEjemplares() {
-		
+
 	}
 
 	private void menuPersonalMensajes() {

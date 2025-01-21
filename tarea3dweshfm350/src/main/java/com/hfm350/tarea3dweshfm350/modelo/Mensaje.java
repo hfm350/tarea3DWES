@@ -1,6 +1,7 @@
 package com.hfm350.tarea3dweshfm350.modelo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,22 +25,41 @@ public class Mensaje implements Serializable {
 	private Long id;
 
 	@Column
-	@Temporal(TemporalType.TIME)
-	private Date fechahora;
+	private LocalDateTime tiempo;
 
 	@Column
 	private String mensaje;
 
 	@ManyToOne
-	@JoinColumn(name = "persona_id")
+	@JoinColumn(name = "persona_id", nullable = false)
 	private Persona persona;
 
 	@ManyToOne
-	@JoinColumn(name = "ejemplar_id")
+	@JoinColumn(name = "ejemplar_id", nullable = false)
 	private Ejemplar ejemplar;
 
 	public Mensaje() {
 	}
+	
+	public Mensaje(LocalDateTime tiempo, String mensaje, Persona persona, Ejemplar ejemplar) {
+	    this.tiempo = tiempo;
+	    this.mensaje = mensaje;
+	    this.persona = persona;
+	    this.ejemplar = ejemplar;
+	}
+
+	
+
+	public Mensaje(Long id, LocalDateTime tiempo, String mensaje, Persona persona, Ejemplar ejemplar) {
+		super();
+		this.id = id;
+		this.tiempo = tiempo;
+		this.mensaje = mensaje;
+		this.persona = persona;
+		this.ejemplar = ejemplar;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -49,12 +69,12 @@ public class Mensaje implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechahora() {
-		return fechahora;
+	public LocalDateTime getFechahora() {
+		return tiempo;
 	}
 
-	public void setFechahora(Date fechahora) {
-		this.fechahora = fechahora;
+	public void setFechahora(LocalDateTime fechahora) {
+		this.tiempo = fechahora;
 	}
 
 	public String getMensaje() {
@@ -83,7 +103,7 @@ public class Mensaje implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Mensaje [id=" + id + ", fechahora=" + fechahora + ", mensaje=" + mensaje + ", persona=" + persona
+		return "Mensaje [id=" + id + ", fechahora=" + tiempo + ", mensaje=" + mensaje + ", persona=" + persona
 				+ ", ejemplar=" + ejemplar + "]";
 	}
 	
