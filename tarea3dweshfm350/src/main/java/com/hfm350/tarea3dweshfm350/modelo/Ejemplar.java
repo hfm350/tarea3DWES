@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,13 +36,20 @@ public class Ejemplar implements Serializable {
 	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL)
 	private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 
+	@OneToOne(mappedBy = "ejemplar")
+	private Localizacion localizacion;
+
 	public Ejemplar() {
 
 	}
 
-	public Ejemplar(String nombre, Planta planta) {
+	public Ejemplar(Long id, String nombre, Planta planta, List<Mensaje> mensajes, Localizacion localizacion) {
+		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.planta = planta;
+		this.mensajes = mensajes;
+		this.localizacion = localizacion;
 	}
 
 	public Long getId() {
@@ -76,19 +84,22 @@ public class Ejemplar implements Serializable {
 		this.mensajes = mensajes;
 	}
 
+	public Localizacion getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(Localizacion localizacion) {
+		this.localizacion = localizacion;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "Ejemplar{" +
-		        "id=" + id +
-		        ", nombre='" + (nombre != null ? nombre : "null") + '\'' +
-		        ", planta=" + (planta != null ? planta.getId() : "null") +
-		        '}';
+		return "Ejemplar{" + "id=" + id + ", nombre='" + (nombre != null ? nombre : "null") + '\'' + ", planta="
+				+ (planta != null ? planta.getId() : "null") + '}';
 	}
-
-	
 
 }

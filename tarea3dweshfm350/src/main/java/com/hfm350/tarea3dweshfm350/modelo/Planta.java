@@ -35,7 +35,7 @@ public class Planta implements Serializable {
 	@Column
 	private String nombreCientifico;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idplanta")
 	private List<Ejemplar> ejemplares = new LinkedList<Ejemplar>();
 

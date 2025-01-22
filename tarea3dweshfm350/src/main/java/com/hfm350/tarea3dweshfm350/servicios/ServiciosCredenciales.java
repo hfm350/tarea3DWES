@@ -65,6 +65,10 @@ public class ServiciosCredenciales {
 	public Optional<Credencial> buscarPersonaPorId(String nombreUsuario) {
 		return crendecialRepo.findByUsuario(nombreUsuario);
 	}
+	
+	public Optional<Long> obtenerIdPersonaPorIdCredencial(Long idCredencial) {
+        return crendecialRepo.findPersonaIdByCredencialId(idCredencial);
+    }
 
 	
 
