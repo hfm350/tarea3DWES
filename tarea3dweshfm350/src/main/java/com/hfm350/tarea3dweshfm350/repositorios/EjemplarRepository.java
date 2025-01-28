@@ -16,4 +16,6 @@ import com.hfm350.tarea3dweshfm350.modelo.Planta;
 public interface EjemplarRepository extends JpaRepository<Ejemplar, Long>{
 	@Query("SELECT COUNT(e) > 0 FROM Ejemplar e WHERE e.planta = :planta")
     boolean existePlanta(@Param("planta") Planta planta);
+
+	Optional<Ejemplar> findById(Long id);
 }

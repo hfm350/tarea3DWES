@@ -62,4 +62,10 @@ public class ServiciosEjemplar {
 		return ejemplarRepo.existePlanta(planta);
 	}
 
+	public Optional<Ejemplar> buscarPorId(Long idEjemplar) {
+		return ejemplarRepo.findById(idEjemplar);
+	}
+
+	
+
 }

@@ -84,7 +84,7 @@ public class FachadaAdmin {
 			System.out.println("\t\t2-  Gestión ejemplares");
 			System.out.println("\t\t3-  Gestión mensajes");
 			System.out.println("\t\t4-  Gestión persona");
-			System.out.println("\t\t5-  Gestión de Seccion y Localización");
+			// System.out.println("\t\t5- Gestión de Seccion y Localización");
 			System.out.println("\t\t9-  Cierre de Sesión");
 
 			try {
@@ -109,7 +109,7 @@ public class FachadaAdmin {
 					gestionPersona();
 					break;
 				case 5:
-					gestionSeccionesyLocalizaciones();
+					// gestionSeccionesyLocalizaciones();
 				case 9:
 					System.out.println("Cerrando sesión de ADMINISTRADOR");
 					s.cerrarSesion();
@@ -124,6 +124,7 @@ public class FachadaAdmin {
 		} while (sesion);
 	}
 
+	@SuppressWarnings("unused")
 	private void gestionSeccionesyLocalizaciones() {
 		int opcion = 0;
 		do {
@@ -143,13 +144,13 @@ public class FachadaAdmin {
 
 				switch (opcion) {
 				case 1:
-					registrarSeccion();
+					// registrarSeccion();
 					break;
 				case 2:
-					registrarLocalizacion();
+					// registrarLocalizacion();
 					break;
 				case 3:
-					duplicarLocalizacion();
+					// duplicarLocalizacion();
 					break;
 				case 9:
 					menuAdmin();
@@ -162,6 +163,7 @@ public class FachadaAdmin {
 		} while (opcion != 9);
 	}
 
+	@SuppressWarnings("unused")
 	private void registrarSeccion() {
 		System.out.println("\n\t\tRegistrar nueva SECCIóN: ");
 		System.out.print("Nombre de la SECCIóN: ");
@@ -182,12 +184,13 @@ public class FachadaAdmin {
 		System.out.println("SECCIóN registrada.");
 	}
 
+	@SuppressWarnings("unused")
 	private void registrarLocalizacion() {
 		System.out.println("\n\t\tRegistrar nueva localización: ");
 		List<Seccion> secciones = servSeccion.obtenerTodasLasSecciones();
 		for (Seccion seccion : secciones) {
-	        System.out.println("ID: " + seccion.getId() + " - Nombre: " + seccion.getNombre());
-	    }
+			System.out.println("ID: " + seccion.getId() + " - Nombre: " + seccion.getNombre());
+		}
 		System.out.print("Introduce el ID de la SECCIóN donde deseas agregar la localización: ");
 		int idSeccion = sc.nextInt();
 
@@ -207,23 +210,23 @@ public class FachadaAdmin {
 		boolean respuesta = false;
 		while (!respuesta) {
 			System.out.print("¿Es una localización exterior? (si/no): ");
-	        String rs = sc.next().trim().toLowerCase();
+			String rs = sc.next().trim().toLowerCase();
 
-	        if (rs.equals("si")) {
-	            esExterior = true;
-	            respuesta = true;
-	        } else if (rs.equals("no")) {
-	            esExterior = false;
-	            respuesta = true;
-	        } else {
-	            System.out.println("ERRO. Pon 'si' o 'no'.");
-	        }
+			if (rs.equals("si")) {
+				esExterior = true;
+				respuesta = true;
+			} else if (rs.equals("no")) {
+				esExterior = false;
+				respuesta = true;
+			} else {
+				System.out.println("ERRO. Pon 'si' o 'no'.");
+			}
 		}
 
 		Localizacion l = new Localizacion();
-		l.setNumSec(numLocalizacion); 
-		l.setExterior(esExterior); 
-		l.setMesa(mesa); 
+		l.setNumSec(numLocalizacion);
+		l.setExterior(esExterior);
+		l.setMesa(mesa);
 		l.setSeccion(s);
 		l.setEjemplar(null);
 		servLocalizacion.insertar(l);
@@ -231,51 +234,51 @@ public class FachadaAdmin {
 		System.out.println("LOCALIZACIóN registrada");
 	}
 
+	@SuppressWarnings("unused")
 	private void duplicarLocalizacion() {
-	    System.out.println("\n\t\tDuplicar localización: ");
-	    List<Seccion> secciones = servSeccion.obtenerTodasLasSecciones();
+		System.out.println("\n\t\tDuplicar localización: ");
+		List<Seccion> secciones = servSeccion.obtenerTodasLasSecciones();
 		for (Seccion seccion : secciones) {
-	        System.out.println("ID: " + seccion.getId() + " - Nombre: " + seccion.getNombre());
-	    }
-	    System.out.print("Introduce el ID de la sección: ");
-	    Long idSeccion = sc.nextLong();
-	    
-	    Optional<Seccion> seccion = servSeccion.obtenerSeccionPorId(idSeccion);
-	    if (!seccion.isPresent()) {
-	        System.out.println("SECCIóN no encontrada.");
-	        return; 
-	    }
-	    Seccion s = seccion.get();
-	    
-	    List<Localizacion> localizaciones= servLocalizacion.obtenerTodasLasLocalizaciones();
-	    for (Localizacion localizacion : localizaciones) {
-	    	System.out.println("Nº: " +localizacion.getId());
+			System.out.println("ID: " + seccion.getId() + " - Nombre: " + seccion.getNombre());
 		}
-	    System.out.print("Introduce el nº de la LOCALIZACIóN: ");
-	    int numLocalizacion = sc.nextInt();
+		System.out.print("Introduce el ID de la sección: ");
+		Long idSeccion = sc.nextLong();
 
-	    Optional<Localizacion> localizacion = servLocalizacion.buscarPorNumeroySeccion(s, numLocalizacion);
-	    if (!localizacion.isPresent()) {
-	        System.out.println("LOCALIZACIóN no encontrada.");
-	        return;  
-	    }
-	    
-	    Localizacion l = localizacion.get();
-	    
-	    int numeroNuevo = servLocalizacion.numeroDeSeccion(s) + 1;
+		Optional<Seccion> seccion = servSeccion.obtenerSeccionPorId(idSeccion);
+		if (!seccion.isPresent()) {
+			System.out.println("SECCIóN no encontrada.");
+			return;
+		}
+		Seccion s = seccion.get();
 
-	    Localizacion localizacionDuplicada = new Localizacion();
-	    localizacionDuplicada.setNumSec(numeroNuevo);    
-	    localizacionDuplicada.setExterior(l.isExterior()); 
-	    localizacionDuplicada.setMesa(l.getMesa());         
-	    localizacionDuplicada.setSeccion(s);              
-	    localizacionDuplicada.setEjemplar(null);            
-	    
-	    servLocalizacion.insertar(localizacionDuplicada);
-	    
-	    System.out.println("Localización duplicada con éxito.");
+		List<Localizacion> localizaciones = servLocalizacion.obtenerTodasLasLocalizaciones();
+		for (Localizacion localizacion : localizaciones) {
+			System.out.println("Nº: " + localizacion.getId());
+		}
+		System.out.print("Introduce el nº de la LOCALIZACIóN: ");
+		int numLocalizacion = sc.nextInt();
+
+		Optional<Localizacion> localizacion = servLocalizacion.buscarPorNumeroySeccion(s, numLocalizacion);
+		if (!localizacion.isPresent()) {
+			System.out.println("LOCALIZACIóN no encontrada.");
+			return;
+		}
+
+		Localizacion l = localizacion.get();
+
+		int numeroNuevo = servLocalizacion.numeroDeSeccion(s) + 1;
+
+		Localizacion localizacionDuplicada = new Localizacion();
+		localizacionDuplicada.setNumSec(numeroNuevo);
+		localizacionDuplicada.setExterior(l.isExterior());
+		localizacionDuplicada.setMesa(l.getMesa());
+		localizacionDuplicada.setSeccion(s);
+		localizacionDuplicada.setEjemplar(null);
+
+		servLocalizacion.insertar(localizacionDuplicada);
+
+		System.out.println("Localización duplicada con éxito.");
 	}
-
 
 	private void gestionPlanta() {
 		System.out.println("\n\t\tMenu-Gestión-Ejemplar\n");
@@ -486,8 +489,48 @@ public class FachadaAdmin {
 	}
 
 	private void verMensajesdeUnEjemplar() {
-		// TODO Auto-generated method stub
+		boolean correcto = false;
+		int contador = 0;
+		List<Ejemplar> ejemplars = servEjemplar.findAll();
+		List<Mensaje> mensajes = servMensaje.findAll();
 
+		for (Ejemplar ejemplar : ejemplars) {
+			contador++;
+			System.out.println(contador + " º");
+			System.out.println(ejemplar.getId() + " ==>\t" + ejemplar.getNombre());
+			System.out.println("-----------------");
+		}
+
+		do {
+			System.out.print("Dime el codigo del Ejemplar para ver su/s mensaje/s: ");
+			Long codigo = sc.nextLong();
+
+			for (Ejemplar ejemplar : ejemplars) {
+				if (ejemplar.getId().equals(codigo)) {
+					correcto = true;
+					boolean mensajeEncontrado = false;
+
+					for (Mensaje mensaje : mensajes) {
+						if (mensaje.getEjemplar().getId().equals(codigo)) {
+							mensajeEncontrado = true;
+							System.out.println("Mensaje/s del ejemplar: " + ejemplar.getId() + "-"
+									+ ejemplar.getNombre() + "  Mensaje: " + mensaje.getMensaje() + " - Persona: "
+									+ mensaje.getPersona().getNombre());
+						}
+					}
+
+					if (!mensajeEncontrado) {
+						System.out.println("No existen mensajes para el codigo del ejemplar " + codigo);
+					}
+					break;
+				}
+			}
+
+			if (!correcto) {
+				System.out.println("ERROR codigo inexistente");
+			}
+
+		} while (!correcto);
 	}
 
 	private void ejemplarPlantas() {
@@ -580,6 +623,7 @@ public class FachadaAdmin {
 
 			System.out.println("Dime el nombre del ejemplar");
 			String nombreEjemplar = sc.nextLine().toUpperCase();
+
 			e.setNombre(nombreEjemplar);
 
 			servEjemplar.insertar(nombreEjemplar, codigoPlanta);
@@ -620,6 +664,213 @@ public class FachadaAdmin {
 
 	private void gestionMensaje() {
 		System.out.println("\n\t\tMenu-Gestión-Mensaje\n");
+		int opcion = 0;
+		do {
+			System.out.println("\t\t1-  Añadir mensaje a un ejemplar");
+			System.out.println("\t\t2-  Mostrar mensajes");
+			System.out.println("\t\t3-  Filtrar mensajes por persona");
+			System.out.println("\t\t4-  Filtrar mensajes por rango de fechas");
+			System.out.println("\t\t5-  Filtrar mensajes por tipo de planta");
+			System.out.println("\t\t9-  Volver al menú ADMIN");
+
+			try {
+				opcion = sc.nextInt();
+				sc.nextLine();
+				if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4 && opcion != 5 && opcion != 9) {
+					System.out.println("Opción invalida. Prueba otra vez. \n");
+					continue;
+				}
+
+				switch (opcion) {
+				case 1:
+					añadirMensajeAEjemplar();
+					break;
+				case 2:
+					mostrarMensajes();
+					break;
+				case 3:
+					filtrarMensajesPorPersona();
+					break;
+				case 4:
+					filtrarMensajesPorRangoFechas();
+					break;
+				case 5:
+					filtrarMensajesPorTipoPlanta();
+					break;
+				case 9:
+					menuAdmin();
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("ERROR, porfavor ingrese un numero ENTERO");
+				sc.next();
+			}
+		} while (opcion != 9);
+	}
+
+	private void añadirMensajeAEjemplar() {
+	    List<Ejemplar> ejemplares = servEjemplar.findAll();
+	    if (ejemplares.isEmpty()) {
+	        System.out.println("No hay ejemplares registrados.");
+	        return;
+	    }
+
+	    System.out.println("\nLista de ejemplares:");
+	    for (Ejemplar ejemplar : ejemplares) {
+	        System.out.println("ID: " + ejemplar.getId() + " - Nombre: " + ejemplar.getNombre() + " - Planta: "
+	                + ejemplar.getPlanta().getNombreComun());
+	    }
+
+	    System.out.print("Introduce el ID del ejemplar al que deseas añadir un mensaje: ");
+	    Long idEjemplar = sc.nextLong();
+	    sc.nextLine();
+
+	    Optional<Ejemplar> ejemplarOptional = servEjemplar.buscarPorId(idEjemplar);
+	    if (!ejemplarOptional.isPresent()) {
+	        System.out.println("Ejemplar no encontrado.");
+	        return;
+	    }
+
+	    Ejemplar ejemplar = ejemplarOptional.get();
+
+	    System.out.print("Introduce el mensaje: ");
+	    String mensajeTexto = sc.nextLine();
+
+	    Long usuarioId = controlador.getUsuarioAutenticado();
+	    Optional<Long> personaID = servCredenciales.obtenerIdPersonaPorIdCredencial(usuarioId);
+
+	    if (!personaID.isPresent()) {
+	        System.out.println("No se encuentra la persona.");
+	        return;
+	    }
+
+	    Optional<Persona> personaOptional = servPersona.buscarPorId(personaID.get());
+	    if (!personaOptional.isPresent()) {
+	        System.out.println("No se encuentra la persona con el ID obtenido.");
+	        return;
+	    }
+
+	    Persona persona = personaOptional.get();
+	    Mensaje mensaje = new Mensaje(LocalDateTime.now(), mensajeTexto, persona, ejemplar);
+	    servMensaje.insertar(mensaje);
+
+	    System.out.println("Mensaje añadido correctamente.");
+	}
+
+
+	private void mostrarMensajes() {
+		List<Mensaje> mensajes = servMensaje.findAll();
+		if (mensajes.isEmpty()) {
+			System.out.println("No hay mensajes registrados.");
+			return;
+		}
+
+		System.out.println("\n\t\tLista de mensajes:");
+		for (Mensaje mensaje : mensajes) {
+			System.out
+					.println("Fecha: " + mensaje.getFechahora() + " - Mensaje: " + mensaje.getMensaje() + " - Persona: "
+							+ mensaje.getPersona().getNombre() + " - Ejemplar: " + mensaje.getEjemplar().getNombre());
+		}
+	}
+
+	private void filtrarMensajesPorPersona() {
+		List<Persona> personas = servPersona.obtenerTodasLasPersonas();
+		if (personas.isEmpty()) {
+			System.out.println("No hay personas registradas.");
+			return;
+		}
+
+		System.out.println("\nLista de personas:");
+		for (Persona persona : personas) {
+			System.out.println("ID: " + persona.getId() + " - Nombre: " + persona.getNombre());
+		}
+
+		System.out.print("Introduce el ID de la persona: ");
+		Long idPersona = sc.nextLong();
+		sc.nextLine();
+
+		Optional<Persona> personaOptional = servPersona.buscarPorId(idPersona);
+		if (!personaOptional.isPresent()) {
+			System.out.println("Persona no encontrada.");
+			return;
+		}
+
+		Persona persona = personaOptional.get();
+		List<Mensaje> mensajes = servMensaje.buscarPorPersona(persona);
+
+		if (mensajes.isEmpty()) {
+			System.out.println("No hay mensajes para esta persona.");
+			return;
+		}
+
+		System.out.println("\nMensajes de " + persona.getNombre() + ":");
+		for (Mensaje mensaje : mensajes) {
+			System.out.println("Fecha: " + mensaje.getFechahora() + " - Mensaje: " + mensaje.getMensaje()
+					+ " - Ejemplar: " + mensaje.getEjemplar().getNombre());
+		}
+	}
+
+	private void filtrarMensajesPorRangoFechas() {
+		System.out.print("Fecha de inicio (YYYY-MM-DD): ");
+		String fechaInicioStr = sc.nextLine();
+		System.out.print("Fecha de fin (YYYY-MM-DD): ");
+		String fechaFinStr = sc.nextLine();
+
+		try {
+			LocalDateTime fechaInicio = LocalDateTime.parse(fechaInicioStr);
+			LocalDateTime fechaFin = LocalDateTime.parse(fechaFinStr);
+
+			List<Mensaje> mensajes = servMensaje.buscarPorFechas(fechaInicio, fechaFin);
+
+			if (mensajes.isEmpty()) {
+				System.out.println("No hay MENSAJES en estas fechas");
+				return;
+			}
+
+			System.out.println("Mensajes entre " + fechaInicioStr + " y " + fechaFinStr + ":");
+			for (Mensaje mensaje : mensajes) {
+				System.out.println("Fecha: " + mensaje.getFechahora() + " - Mensaje: " + mensaje.getMensaje()
+						+ " - Persona: " + mensaje.getPersona().getNombre() + " - Ejemplar: "
+						+ mensaje.getEjemplar().getNombre());
+			}
+		} catch (Exception e) {
+			System.out.println("FECHA erronéa. Usa YYYY-MM-DD.");
+		}
+	}
+
+	private void filtrarMensajesPorTipoPlanta() {
+		List<Planta> plantas = servPlanta.findAll();
+		if (plantas.isEmpty()) {
+			System.out.println("No hay plantas registradas.");
+			return;
+		}
+
+		System.out.println("\nLista de plantas:");
+		for (Planta planta : plantas) {
+			System.out.println("Código: " + planta.getCodigo() + " - Nombre: " + planta.getNombreComun());
+		}
+
+		System.out.print("Introduce el código de la planta: ");
+		String codigoPlanta = sc.nextLine().toUpperCase();
+
+		Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
+		if (planta != null) {
+			List<Mensaje> mensajes = servMensaje.buscarPorPlanta(planta);
+
+			if (mensajes.isEmpty()) {
+				System.out.println("No hay mensajes para esta planta.");
+				return;
+			}
+
+			System.out.println("\nMensajes para " + planta.getNombreComun() + ":");
+			for (Mensaje mensaje : mensajes) {
+				System.out.println("Fecha: " + mensaje.getFechahora() + " - Mensaje: " + mensaje.getMensaje()
+						+ " - Persona: " + mensaje.getPersona().getNombre() + " - Ejemplar: "
+						+ mensaje.getEjemplar().getNombre());
+			}
+		} else {
+			System.out.println("Planta no encontrada.");
+		}
 	}
 
 	public void gestionPersona() {

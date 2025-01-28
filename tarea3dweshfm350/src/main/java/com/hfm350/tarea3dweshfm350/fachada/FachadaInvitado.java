@@ -64,7 +64,7 @@ public class FachadaInvitado {
 			System.out.println("\tSeleccione una opción:");
 			System.out.println("\t1. Mostrar todas las plantas");
 			System.out.println("\t2. Iniciar sesión");
-			System.out.println("\t3. Hacer pedido");
+			//System.out.println("\t3. Hacer pedido");
 			System.out.println("\t9. Cerrar Sesion");
 
 			try {
@@ -79,7 +79,7 @@ public class FachadaInvitado {
 					sesion = true;
 					break;
 				case 3:
-					hacerPedido();
+					//hacerPedido();
 					break;
 				case 9:
 					System.out.println("Cierre Sesion HECHO");
@@ -88,10 +88,10 @@ public class FachadaInvitado {
 				default:
 					System.out.println("OPCION NO VALIDA");
 				}
-			} catch (InputMismatchException e) {
+			} catch (Exception e) {
 				System.out.println("ENTRADA NO VALIDA");
-				sc.next();
-				opcionSeleccionada = 0;
+				sc.nextLine();
+				
 			}
 		} while (sesion);
 	}

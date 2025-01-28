@@ -24,8 +24,8 @@ public class Mensaje implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	private LocalDateTime tiempo;
+	@Column()
+	private LocalDateTime tiempo ;
 
 	@Column
 	private String mensaje;
