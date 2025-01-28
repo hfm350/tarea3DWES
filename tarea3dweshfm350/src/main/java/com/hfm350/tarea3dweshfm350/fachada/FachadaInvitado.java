@@ -54,47 +54,46 @@ public class FachadaInvitado {
 	private Scanner sc = new Scanner(System.in);
 
 	Sesion s = new Sesion(Perfil.INVITADO);
-	boolean sesion = true;
 
 	public void mostrarMenuInvitado() {
-		int opcionSeleccionada = 0;
-		boolean sesion = false;
-		do {
-			System.out.println("\n\n\t\t\tMENU INVITADO");
-			System.out.println("\tSeleccione una opción:");
-			System.out.println("\t1. Mostrar todas las plantas");
-			System.out.println("\t2. Iniciar sesión");
-			//System.out.println("\t3. Hacer pedido");
-			System.out.println("\t9. Cerrar Sesion");
+	    int opcionSeleccionada = 0;
+	    boolean sesionActiva = true;
+	    do {
+	        System.out.println("\n\n\t\t\tMENU INVITADO");
+	        System.out.println("\tSeleccione una opción:");
+	        System.out.println("\t1. Mostrar todas las plantas");
+	        System.out.println("\t2. Iniciar sesión");
+	        //System.out.println("\t3. Hacer pedido");
+	        System.out.println("\t9. Cerrar Sesion");
 
-			try {
-				opcionSeleccionada = sc.nextInt();
-				switch (opcionSeleccionada) {
-				case 1:
-					mostrarTodasLasPlantas();
-					mostrarMenuInvitado();
-					break;
-				case 2:
-					iniciarSesion();
-					sesion = true;
-					break;
-				case 3:
-					//hacerPedido();
-					break;
-				case 9:
-					System.out.println("Cierre Sesion HECHO");
-					sesion = false;
-					break;
-				default:
-					System.out.println("OPCION NO VALIDA");
-				}
-			} catch (Exception e) {
-				System.out.println("ENTRADA NO VALIDA");
-				sc.nextLine();
-				
-			}
-		} while (sesion);
+	        try {
+	            opcionSeleccionada = sc.nextInt();
+	            switch (opcionSeleccionada) {
+	            case 1:
+	                mostrarTodasLasPlantas();
+	                mostrarMenuInvitado();
+	                break;
+	            case 2:
+	                iniciarSesion();
+	                sesionActiva = true;
+	                break;
+	            case 3:
+	                //hacerPedido();
+	                break;
+	            case 9:
+	                System.out.println("Cierre Sesion HECHO");
+	                sesionActiva = false;
+	                break;
+	            default:
+	                System.out.println("OPCION NO VALIDA");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("ENTRADA NO VALIDA");
+	            sc.nextLine();
+	        }
+	    } while (sesionActiva);
 	}
+
 
 	public void hacerPedido() {
 		sc.nextLine();
