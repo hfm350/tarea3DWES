@@ -1,22 +1,129 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vivero-Laboral</title>
-    <link rel="stylesheet" th:href="@{/css/1.css}" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero-Laboral</title>
+<link rel="stylesheet" th:href="@{/1.css}">
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.container {
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 90%;
+	max-width: 600px;
+	text-align: center;
+}
+
+header h1 {
+	margin-bottom: 20px;
+	font-size: 24px;
+	color: #333;
+}
+
+.plants-section h2 {
+	margin-bottom: 20px;
+	font-size: 20px;
+	color: #333;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+	background-color: white;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+td{
+	padding: auto;
+	text-align: center;
+}
+th {
+	background-color: #28a745;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
+tr:hover {
+	background-color: #f1f1f1;
+}
+
+.btn {
+	padding: 10px;
+	background-color: #28a745;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	width: 100%;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+	margin: auto;
+}
+
+.btn:hover {
+	background-color: #218838;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Vivero-Laboral</h1>
-        </header>
-        <main>
-            <section class="options-section">
-                <a th:href="@{/html/iniciarSesion.html}" class="btn">Iniciar Sesión</a>
-                <a th:href="@{/html/plantas.html}" class="btn">Ver Todas las Plantas</a>
-            </section>
-        </main>
-    </div>
+	<div class="container">
+		<header>
+			<h1>Vivero-Laboral</h1>
+		</header>
+		<main>
+			<section class="options-section">
+				<a th:href="@{/inicioSesion}" class="btn">Iniciar Sesión</a>
+			</section>
+
+			<section class="plants-section">
+				<h2>Lista de Plantas</h2>
+
+				<p th:if="${#lists.isEmpty(plantas)}">No hay plantas
+					registradas.</p>
+
+				<table th:unless="${#lists.isEmpty(plantas)}">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nombre Común</th>
+							<th>Nombre Científico</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="planta : ${plantas}">
+							<td th:text="${planta.codigo}">Código</td>
+							<td th:text="${planta.nombreComun}">Nombre Común</td>
+							<td th:text="${planta.nombreCientifico}">Nombre Científico</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</main>
+	</div>
 </body>
 </html>

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -13,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-image: url('/images/Vivero-Laboral Diego y Hugo.png'); 
+    background-image: url('vivero.png');
     background-size: cover;
     background-position: center;
 }
@@ -43,7 +44,8 @@ header h1 {
     margin-right: 20px;
 }
 
-.login-section, .plants-section {
+.login-section,
+.plants-section {
     margin-bottom: 20px;
     margin-right: 20px;
     margin-left: 20px;
@@ -74,24 +76,6 @@ input {
     box-sizing: border-box;
 }
 
-button, .btn {
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    text-decoration: none;
-    text-align: center;
-    display: block;
-}
-
-button:hover, .btn:hover {
-    background-color: #218838;
-}
 
 .login-section p {
     margin-top: 10px;
@@ -124,14 +108,15 @@ button:hover, .btn:hover {
 .options-section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 3px;
     margin-bottom: 20px;
     margin-right: 20px;
 
 
 }
 
-.login-section, .plants-section {
+.login-section,
+.plants-section {
     margin-bottom: 20px;
     margin-right: 20px;
     padding: auto;
@@ -162,9 +147,11 @@ input {
     width: 100%;
     box-sizing: border-box;
 
+
 }
 
-button, .btn {
+button,
+.btn {
     padding: 10px;
     background-color: #28a745;
     color: #fff;
@@ -179,8 +166,10 @@ button, .btn {
     display: block;
 }
 
-button:hover, .btn:hover {
+button:hover,
+.btn:hover {
     background-color: #218838;
+
 
 }
 
@@ -189,27 +178,32 @@ button:hover, .btn:hover {
     font-size: 14px;
     color: #555;
 
+
 }
 
 .login-section a {
     color: #28a745;
     text-decoration: none;
 
+
 }
 
 .login-section a:hover {
     text-decoration: underline;
-
 }
 
 .plants-section ul {
     list-style-type: none;
     padding: 0;
     text-align: left;
+    margin: auto;
 }
 
 .plants-section li {
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
+
 }
+
+

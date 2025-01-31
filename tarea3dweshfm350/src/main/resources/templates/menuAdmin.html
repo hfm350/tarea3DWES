@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivero-Laboral</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('vivero.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .options-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button, .btn {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        button:hover, .btn:hover {
+            background-color: #218838;
+        }
+
+        .login-section {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .login-section a {
+            display: block;
+            width: 100%;
+        }
+
+        .logout-btn {
+            padding: 10px;
+            margin: auto;
+            background-color: #dc3545; 
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            font-size: 12px;
+            text-align: right;
+            width: 100%;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333; 
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vivero-Laboral</h1>
+        </header>
+         <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
+        <section class="options-section">
+            <a th:href="@{/gestion_plantas}">
+                <button class="btn">1. Gestion de Plantas</button>
+            </a>
+            <a th:href="@{/registro_personal}">
+                <button class="btn">2. Registro de Personal</button>
+            </a>
+            <a th:href="@{/gestion_ejemplares}">
+                <button class="btn">3. Gestion de Ejemplares</button>
+            </a>
+            <a th:href="@{/gestion_mensajes}">
+                <button class="btn">4. Gestion de Mensajes</button>
+            </a>
+        </section>
+    </div>
+    <section class="login-section">
+        <a th:href="@{/}">
+            <button class="logout-btn">CERRAR SESION</button>
+        </a>
+    </section>
+</body>
+</html>

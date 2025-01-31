@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Plantas</title>
+<link rel="stylesheet" th:href="@{/1.css}">
+</head>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	background-color: white;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #28a745;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #ddd;
+}
+
+.btn-regresar:hover {
+	background-color: #218838;
+}
+</style>
+<body>
+
+	<div class="container">
+		<header>
+			<h1>Lista de Plantas</h1>
+		</header>
+
+		<main>
+			<section class="plants-section">
+
+				<p th:if="${#lists.isEmpty(plantas)}">No hay plantas
+					registradas.</p>
+
+				<table th:unless="${#lists.isEmpty(plantas)}">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nombre Común</th>
+							<th>Nombre Científico</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="planta : ${plantas}">
+							<td th:text="${planta.codigo}">Código</td>
+							<td th:text="${planta.nombreComun}">Nombre Común</td>
+							<td th:text="${planta.nombreCientifico}">Nombre Científico</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<a th:href="@{/}" class="btn-regresar">Regresar</a>
+			</section>
+		</main>
+	</div>
+
+</body>
+</html>
