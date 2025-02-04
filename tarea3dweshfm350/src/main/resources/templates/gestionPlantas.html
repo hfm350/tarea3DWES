@@ -109,28 +109,23 @@ button:hover, .btn:hover {
 <body>
 	<nav class="navbar">
 		<a href="#" class="logo">Perfil actual: <span th:text="${perfil}"></span></
-		</a> <a href="/" class="logout-btn">Cerrar Sesión</a>
+		</a> <a th:href="@{/menuAdmin}" class="logout-btn">Volver</a>
 	</nav>
 	<div class="container">
 		<header>
-			<h1>Vivero-Laboral</h1>
+			<h1>Gestion de PLANTAS</h1>
 		</header>
 
-		<p>
-			Bienvenido, <span th:text="${nombreUsuario.toUpperCase()}"></span>
-		</p>
+
 
 
 		<section class="options-section">
-			<a th:href="@{/gestionPlantas}">
-				<button class="btn">1. Gestion de Plantas</button>
-			</a> <a th:href="@{/registroPersonal}">
-				<button class="btn">2. Registro de Personal</button>
-			</a> <a th:href="@{/gestionEjemplar}">
-				<button class="btn">3. Gestion de Ejemplares</button>
-			</a> <a th:href="@{/gestionMensajes}">
-				<button class="btn">4. Gestion de Mensajes</button>
-			</a>
+			<a th:href="@{/registrarPlantas}">
+				<button class="btn">1. Insertar Plantas</button>
+			</a> <a href="registro_personal.html">
+				<button class="btn">2. Cambiar nombre común</button>
+			</a> <a href="gestion_ejemplares.html">
+				<button class="btn">3. Cambiar nombre cientifíco</button>
 		</section>
 	</div>
 

@@ -53,7 +53,7 @@ public class FachadaInvitado {
 
 	private Scanner sc = new Scanner(System.in);
 
-	Sesion s = new Sesion(Perfil.INVITADO);
+	Sesion s = new Sesion(Perfil.INVITADO, "");
 
 	public void mostrarMenuInvitado() {
 	    int opcionSeleccionada = 0;

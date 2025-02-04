@@ -73,7 +73,7 @@ public class FachadaAdmin {
 	Scanner sc = new Scanner(System.in);
 
 	public void menuAdmin() {
-		Sesion s = new Sesion(Perfil.ADMIN);
+		Sesion s = new Sesion(Perfil.ADMIN, "");
 		int opcion = 0;
 		boolean sesion = true;
 		Long usuarioId = controlador.getUsuarioAutenticado();

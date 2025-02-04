@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vivero-Laboral</title>
+<title>Menú Personal - Vivero-Laboral</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -59,17 +59,6 @@ button:hover, .btn:hover {
 	background-color: #218838;
 }
 
-.login-section {
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
-}
-
-.login-section a {
-	display: block;
-	width: 100%;
-}
-
 .navbar {
 	width: 100%;
 	background-color: #28a745;
@@ -108,31 +97,26 @@ button:hover, .btn:hover {
 </head>
 <body>
 	<nav class="navbar">
-		<a href="#" class="logo">Perfil actual: <span th:text="${perfil}"></span></
-		</a> <a href="/" class="logout-btn">Cerrar Sesión</a>
+		<a href="#" class="logo">Perfil actual: <span th:text="${perfil}"></span></a>
+		<a href="/" class="logout-btn">Cerrar Sesión</a>
 	</nav>
 	<div class="container">
 		<header>
 			<h1>Vivero-Laboral</h1>
 		</header>
-
 		<p>
 			Bienvenido, <span th:text="${nombreUsuario.toUpperCase()}"></span>
 		</p>
 
-
 		<section class="options-section">
-			<a th:href="@{/gestionPlantas}">
-				<button class="btn">1. Gestion de Plantas</button>
-			</a> <a th:href="@{/registroPersonal}">
-				<button class="btn">2. Registro de Personal</button>
-			</a> <a th:href="@{/gestionEjemplar}">
-				<button class="btn">3. Gestion de Ejemplares</button>
-			</a> <a th:href="@{/gestionMensajes}">
-				<button class="btn">4. Gestion de Mensajes</button>
+			<a th:href="@{/verPlantas}">
+				<button class="btn">1. Ver Plantas</button>
+			</a> <a href="gestion_mensajes.html">
+				<button class="btn">2. Gestionar Mensajes</button>
+			</a> <a href="gestion_ejemplares.html">
+				<button class="btn">3. Gestionar Ejemplares</button>
 			</a>
 		</section>
 	</div>
-
 </body>
 </html>

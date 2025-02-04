@@ -2,30 +2,41 @@ package com.hfm350.tarea3dweshfm350.modelo;
 
 public class Sesion {
 
-	private Perfil perfil;
+    private Perfil perfil;
+    private String nombreUsuario; 
 
-	public Sesion() {
-	}
+    public Sesion() {
+    }
 
-	public enum Perfil {
-		INVITADO, PERSONAL, ADMIN
-	}
+    public enum Perfil {
+        INVITADO, PERSONAL, ADMIN
+    }
 
-	public Sesion( Perfil perfil) {
-		super();
-		this.perfil = perfil;
-	}
+    
+    public Sesion(Perfil perfil, String nombreUsuario) {
+        super();
+        this.perfil = perfil;
+        this.nombreUsuario = nombreUsuario;
+    }
 
-	public Perfil getPerfil() {
-		return perfil;
-	}
+    public Perfil getPerfil() {
+        return perfil;
+    }
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
-	}
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 
-	public void cerrarSesion() {
-		this.perfil = Perfil.INVITADO;
-	}
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
 
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void cerrarSesion() {
+        this.perfil = Perfil.INVITADO;
+        this.nombreUsuario = null; 
+    }
 }
