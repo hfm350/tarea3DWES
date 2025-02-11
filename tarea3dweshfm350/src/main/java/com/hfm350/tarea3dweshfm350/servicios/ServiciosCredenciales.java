@@ -1,5 +1,6 @@
 package com.hfm350.tarea3dweshfm350.servicios;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hfm350.tarea3dweshfm350.modelo.Credencial;
 import com.hfm350.tarea3dweshfm350.modelo.Persona;
+import com.hfm350.tarea3dweshfm350.modelo.Planta;
 import com.hfm350.tarea3dweshfm350.repositorios.CredencialRepository;
 import com.hfm350.tarea3dweshfm350.repositorios.PersonaRepository;
 
@@ -20,8 +22,12 @@ public class ServiciosCredenciales {
 	private CredencialRepository crendecialRepo;
 
 	public boolean autenticar(String nombreUsuario, String clave) {
-		return crendecialRepo.findByUsuario(nombreUsuario).map(credenciales -> credenciales.getPassword().equals(clave))
-				.orElse(false);
+	    Optional<Credencial> credencialOpt = crendecialRepo.findByUsuario(nombreUsuario);
+	    if (credencialOpt.isPresent()) {
+	        Credencial credenciales = credencialOpt.get();
+	        return credenciales.getPassword().equals(clave); 
+	    }
+	    return false; 
 	}
 
 	public boolean verificarUsuario(String usuario) {
@@ -68,6 +74,10 @@ public class ServiciosCredenciales {
 	
 	public Optional<Long> obtenerIdPersonaPorIdCredencial(Long idCredencial) {
         return crendecialRepo.findPersonaIdByCredencialId(idCredencial);
+    }
+	
+	public List<Credencial> findAll() {
+        return crendecialRepo.findAll();
     }
 
 	

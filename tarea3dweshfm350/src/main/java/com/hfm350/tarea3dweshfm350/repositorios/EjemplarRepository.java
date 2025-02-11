@@ -18,4 +18,5 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Long>{
     boolean existePlanta(@Param("planta") Planta planta);
 
 	Optional<Ejemplar> findById(Long id);
+
 }

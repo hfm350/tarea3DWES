@@ -27,17 +27,17 @@ public class ServiciosEjemplar {
         ejemplarRepo.saveAndFlush(ej);
     }
 	
-	public void insertar(String nombre, String codigo) {
+	public Ejemplar insertar(String nombre, String codigo) {
 	    if (nombre == null || nombre.trim().isEmpty()) {
 	        System.out.println("El nombre del ejemplar no puede estar vacío.");
-	        return;
+	        return null;
 	    }
 
 	    Optional<Planta> p = plantaRepo.findByCodigo(codigo);
 
 	    if (p.isEmpty()) {
 	        System.out.println("La planta con código " + codigo + " no existe.");
-	        return;
+	        return null;
 	    }
 
 	    Planta planta = p.get();
@@ -52,6 +52,7 @@ public class ServiciosEjemplar {
 	    } catch (Exception e) {
 	        System.err.println("Error al registrar el ejemplar: " + e.getMessage());
 	    }
+		return ejemplar;
 	}
 
 	public List<Ejemplar> findAll() {
@@ -65,6 +66,8 @@ public class ServiciosEjemplar {
 	public Optional<Ejemplar> buscarPorId(Long idEjemplar) {
 		return ejemplarRepo.findById(idEjemplar);
 	}
+	
+	
 
 	
 

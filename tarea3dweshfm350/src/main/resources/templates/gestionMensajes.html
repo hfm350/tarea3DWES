@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vivero-Laboral</title>
+<title>Gestión de Mensajes - Vivero Laboral</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -108,31 +108,32 @@ button:hover, .btn:hover {
 </head>
 <body>
 	<nav class="navbar">
-		<a href="#" class="logo">Perfil actual: <span th:text="${perfil}"></span></
-		</a> <a href="/" class="logout-btn">Cerrar Sesión</a>
+		<a href="#" class="logo">Gestión de Mensajes</a>
+		<a th:href="@{/menuAdmin}" class="logout-btn">Volver</a>
+
 	</nav>
 	<div class="container">
 		<header>
-			<h1>Vivero-Laboral</h1>
+			<h1>Gestión de Mensajes</h1>
 		</header>
 
-		<p>
-			Bienvenido, <span th:text="${nombreUsuario.toUpperCase()}"></span>
-		</p>
-
-
 		<section class="options-section">
-			<a th:href="@{/gestionPlantas}">
-				<button class="btn">Gestion de Plantas</button>
-			</a> <a th:href="@{/registroPersona}">
-				<button class="btn">Registro de Personal</button>
-			</a> <a th:href="@{/gestionEjemplares}">
-				<button class="btn">Gestion de Ejemplares</button>
-			</a> <a th:href="@{/gestionMensajes}">
-				<button class="btn">Gestion de Mensajes</button>
+			<a href="@{/añadirMensajeEjemplar}">
+				<button class="btn">Añadir mensaje a un ejemplar</button>
+			</a>
+			<a href="@{/mostrarMensajes}">
+				<button class="btn">Mostrar mensajes</button>
+			</a>
+			<a href="@{/filtrarMensajesPorPersona}">
+				<button class="btn">Filtrar mensajes por persona</button>
+			</a>
+			<a href="@{/filtrarMensajesPorFechas}">
+				<button class="btn">Filtrar mensajes por rango de fechas</button>
+			</a>
+			<a href="@{/filtrarMensajesPorPlanta}">
+				<button class="btn">Filtrar mensajes por tipo de planta</button>
 			</a>
 		</section>
 	</div>
-
 </body>
 </html>
