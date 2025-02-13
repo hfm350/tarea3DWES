@@ -134,6 +134,26 @@ button:hover, .btn:hover {
 				<button class="btn">Filtrar mensajes por tipo de planta</button>
 			</a>
 		</section>
+		
+		<div class="table-container">
+    <h2>Plantas en el Vivero-Laboral</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre Común</th>
+          <th>Nombre Científico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="planta : ${plantas}">
+          <td th:text="${planta.codigo}"></td>
+          <td th:text="${planta.nombreComun}"></td>
+          <td th:text="${planta.nombreCientifico}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 	</div>
 </body>
 </html>

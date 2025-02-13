@@ -43,7 +43,7 @@ public class PersonaController {
 		Credencial credencial = new Credencial();
 		boolean valido = true;
 
-		if (nombre.matches("[A-Z][a-z]*")) {
+		if (nombre.matches("[a-z]*")) {
 			p.setNombre(nombre);
 		} else {
 			List<Credencial> listaCredencials = servCrendeciales.findAll().stream()
