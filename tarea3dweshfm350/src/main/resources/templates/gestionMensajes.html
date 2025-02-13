@@ -1,159 +1,245 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión de Mensajes - Vivero Laboral</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background-image: url('vivero.png');
-	background-size: cover;
-	background-position: center;
-	position: relative;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('vivero.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
 
-.container {
-	background-color: rgba(255, 255, 255, 0.9);
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	width: 300px;
-	text-align: center;
-}
+        .navbar {
+            width: 100%;
+            background-color: #28a745;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-header h1 {
-	margin-bottom: 20px;
-	font-size: 24px;
-	color: #333;
-}
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
 
-.options-section {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
+        .navbar .logout-btn {
+            background-color: white;
+            color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 25px;
+        }
 
-button, .btn {
-	padding: 10px;
-	background-color: #28a745;
-	color: #fff;
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
-	width: 100%;
-	margin-top: 10px;
-	text-decoration: none;
-	text-align: center;
-}
+        .navbar .logout-btn:hover {
+            background-color: #7b3939;
+            color: white;
+        }
 
-button:hover, .btn:hover {
-	background-color: #218838;
-}
+        .container, .message-container {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.login-section {
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
-}
+        h1, h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
 
-.login-section a {
-	display: block;
-	width: 100%;
-}
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 30px;
+        }
 
-.navbar {
-	width: 100%;
-	background-color: #28a745;
-	padding: 15px 20px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .box-button {
+            width: 140px;
+            height: 140px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+            text-align: center;
+        }
 
-.navbar .logo {
-	font-size: 24px;
-	font-weight: bold;
-	color: white;
-	text-decoration: none;
-}
+        .box-button:hover {
+            transform: scale(1.1);
+        }
 
-.navbar .logout-btn {
-	background-color: white;
-	color: #28a745;
-	padding: 10px 15px;
-	border-radius: 5px;
-	text-decoration: none;
-	font-weight: bold;
-	cursor: pointer;
-	margin-right: 25px;
-}
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.navbar .logout-btn:hover {
-	background-color: #7b3939;
-}
-</style>
+        label {
+            align-self: flex-start;
+            font-weight: bold;
+        }
+
+        select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        select, textarea {
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            color: black;
+        }
+
+        /* Estilo para los mensajes de éxito y error */
+        .message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .message-error {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-	<nav class="navbar">
-		<a href="#" class="logo">Gestión de Mensajes</a>
-		<a th:href="@{/menuAdmin}" class="logout-btn">Volver</a>
 
-	</nav>
-	<div class="container">
-		<header>
-			<h1>Gestión de Mensajes</h1>
-		</header>
+    <nav class="navbar">
+        <a href="#" class="logo">Gestión De Mensajes</a>
+        <a th:href="@{/menuAdmin}" class="logout-btn">Volver</a>
+    </nav>
 
-		<section class="options-section">
-			<a href="@{/añadirMensajeEjemplar}">
-				<button class="btn">Añadir mensaje a un ejemplar</button>
-			</a>
-			<a href="@{/mostrarMensajes}">
-				<button class="btn">Mostrar mensajes</button>
-			</a>
-			<a href="@{/filtrarMensajesPorPersona}">
-				<button class="btn">Filtrar mensajes por persona</button>
-			</a>
-			<a href="@{/filtrarMensajesPorFechas}">
-				<button class="btn">Filtrar mensajes por rango de fechas</button>
-			</a>
-			<a href="@{/filtrarMensajesPorPlanta}">
-				<button class="btn">Filtrar mensajes por tipo de planta</button>
-			</a>
-		</section>
-		
-		<div class="table-container">
-    <h2>Plantas en el Vivero-Laboral</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Nombre Común</th>
-          <th>Nombre Científico</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="planta : ${plantas}">
-          <td th:text="${planta.codigo}"></td>
-          <td th:text="${planta.nombreComun}"></td>
-          <td th:text="${planta.nombreCientifico}"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-	</div>
+    <div class="button-container">
+        <a th:href="@{/filtrarPorPersona}" class="box-button">Filtrar Por Persona</a>
+        <a th:href="@{/filtrarPorFecha}" class="box-button">Filtrar Por Fechas</a>
+        <a th:href="@{/filtrarPorPlanta}" class="box-button">Filtrar Por Plantas</a>
+    </div>
+
+    <div class="message-container">
+
+        <div th:if="${mensajeExito}" class="message message-success">
+            <p th:text="${mensajeExito}"></p>
+        </div>
+
+     
+        <div th:if="${mensajeError}" class="message message-error">
+            <p th:text="${mensajeError}"></p>
+        </div>
+
+        <h2>Añadir Mensaje</h2>
+        <form id="messageForm" th:action="@{/gestionMensajes}" method="post">
+            <label for="idEjemplar">Seleccionar Ejemplar:</label>
+            <select id="idEjemplar" name="idEjemplar" required>
+                <option th:each="ejemplar : ${ejemplares}" th:value="${ejemplar.id}" th:text="${ejemplar.nombre}"></option>
+            </select>
+
+            <label for="mensajeTexto">Mensaje:</label>
+<textarea id="mensajeTexto" name="mensajeTexto" rows="4" required></textarea>
+
+            <button type="submit">Añadir Mensaje</button>
+        </form>
+    </div>
+
+    <div class="message-container">
+        <h2>Listado de Mensajes</h2>
+        <table id="messageTable">
+            <thead>
+                <tr>
+                    <th>Ejemplar</th>
+                    <th>Mensaje</th>
+                    <th>Persona</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mensaje : ${mensajes}">
+                    <td th:text="${mensaje.ejemplar.nombre}"></td>
+                    <td th:text="${mensaje.mensaje}"></td>
+                    <td th:text="${mensaje.persona.nombre}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>
